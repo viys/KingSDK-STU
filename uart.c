@@ -256,3 +256,21 @@ void DBG_U2_Send(char *format,...)
     memset(U2_TxBuff,0x00,1000);
 }
 
+
+void LOG_P(int ret,char *format,...)
+{
+    if(ret != 0){
+        /* 建立一个va_list变量listdata */
+        va_list listdata;
+        /* 向listdata加载,...代表不定长的参数 */
+        va_start(listdata,format);
+        
+        /* 格式化输出到缓冲区 U0_TxBuff */
+        vsprintf((char *)U2_TxBuff,format,listdata);
+        /* 释放lostdata */
+        va_end(listdata);
+        /* 发送缓冲区数据 */
+        KING_UartWrite(UART_2,U2_TxBuff,strlen((const char*)U2_TxBuff),&writeLen);
+        memset(U2_TxBuff,0x00,1000);
+    }
+}

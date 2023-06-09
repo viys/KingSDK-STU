@@ -15,7 +15,6 @@ void APP_Main(uint32 bootMode)
 
     /* 创建启动任务函数 */
     ret = KING_ThreadCreate("AppTaskStart",KING_Thread_Config(AppTaskStart,NULL,4,1024),&AppTaskStartThreadH);
-    if(ret != 0){
-        LogPrintf("KING_ThreadCreate() AppTaskStart Fail!");
-    }
+    LOG_P(ret,"KING_ThreadCreate() AppTaskStart Fail!");
+
 }
